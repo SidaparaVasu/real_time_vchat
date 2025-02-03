@@ -42,3 +42,8 @@ python==3.13.0
 channels==4.2.0
 daphne==4.1.2
 ```
+
+# Run command
+```
+python manage.py runserver
+```
