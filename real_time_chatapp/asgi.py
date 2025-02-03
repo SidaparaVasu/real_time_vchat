@@ -13,7 +13,9 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from chat import routing  
 
+import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'real_time_chatapp.settings')
+django.setup()
 
 # Initialize the ASGI application
 
