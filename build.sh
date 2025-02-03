@@ -6,9 +6,9 @@ pip install -r requirements.txt
 
 pip install gunicorn
 
-set DJANGO_SETTINGS_MODULE = real_time_chatapp.settings
+# set DJANGO_SETTINGS_MODULE = real_time_chatapp.settings
 
-gunicorn --env DJANGO_SETTINGS_MODULE=real_time_chatapp.settings real_time_chatapp.asgi
+# gunicorn --env DJANGO_SETTINGS_MODULE=real_time_chatapp.settings real_time_chatapp.asgi
 
 python manage.py collectstatic --no-input
 python manage.py migrate
