@@ -14,16 +14,18 @@ from channels.auth import AuthMiddlewareStack
 from chat import routing  
 
 import django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'real_time_vchat.real_time_chatapp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'real_time_chatapp.settings')
 django.setup()
 
 # Initialize the ASGI application
 
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": AuthMiddlewareStack(
-        URLRouter(
-            routing.websocket_urlpatterns
-        )
-    ),
-})
+application = get_asgi_application()
+
+# application = ProtocolTypeRouter({
+#     "http": get_asgi_application(),
+#     "websocket": AuthMiddlewareStack(
+#         URLRouter(
+#             routing.websocket_urlpatterns
+#         )
+#     ),
+# })
