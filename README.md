@@ -1,41 +1,40 @@
 # Chat Application
 
-## Steps to run this project
+## Project Setup Instructions
 
-Prior Installation
+## Prior Installation
 
-# Install Virtual Environment if not installed
+# 1. Install Virtual Environment if not installed
 
 ```
 pip install virtualenv
 ```
 
-# Enable Virtual Environment
+# 2. Enable Virtual Environment
 
 ```
 python -m venv venv
 ```
 
-# Activate Virtual Environment
+# 3. Activate Virtual Environment
 
 ```
 venv\Scripts\activate
 ```
 
-# Install Django
+# 4. Install Django
 
 ```
 pip install Django
 ```
 
-# Verify Django Installation
+# 5. Verify Django Installation
 
 ```
 python -m django --version
 ```
 
-# Required packages
-
+# 6. Install Dependancies
 ```
 django==5.1.5
 python==3.13.0
@@ -43,7 +42,21 @@ channels==4.2.0
 daphne==4.1.2
 ```
 
-# Run command
+```
+pip install -r requirements.txt
+```
+
+# 7. Make Migrations
+```
+python manage.py makemigrations
+```
+
+# 8. Migrate DataBase
+```
+python manage.py migrate
+```
+
+# 9. Run Application
 ```
 python manage.py runserver
 ```
