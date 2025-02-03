@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+
+<body>
+    <section class="container" id="container">
+        <div class="sign-up-form">
+            <div class="right-box">
+                <img src="{% static 'img/icons8-go-back-100.png' %}" alt="Click here" />
+                <p>Already have an account? <a href="{% url 'login_request' %}" id="link">sign in</a> </p>
+            </div>
+            <form action="register" method="post" class="form">
+                {% csrf_token %}
+                <div class="box">
+                    <h1>Sign Up</h1>
+                    <label for="username">Username*</label>
+                    <input type="text" class="input-field username" name="username" value="Vasu" required />
+                    <label for="email">Email*</label>
+                    <input type="email" class="input-field email" name="email" value="Vasu@gmail.com" required />
+                    <label for="password">Password*</label>
+                    <input type="password" name="password1" class="input-field password" value="Vasu@123" />
+                    <label for="cpassword">Confirm password*</label>
+                    <input type="password" name="password2" class="input-field cpassword" value="Vasu@123" />
+                    <label for="remeberme" class="rem-me">
+                        <input type="checkbox" name="remember" id="checkbox" />
+                        Remember me
+                    </label>
+                    <input type="submit" value="sign up" class="btn">
+                    <span class="message">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.tags %}
+                        <p>{{ message }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </span>
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+    <script>
+        function slide() {
+            let element = document.getElementById('container');
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
