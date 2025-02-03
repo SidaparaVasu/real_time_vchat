@@ -84,6 +84,8 @@ TEMPLATES = [
 
 ASGI_APPLICATION = 'real_time_chatapp.asgi.application'
 
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
