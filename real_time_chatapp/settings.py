@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-942#rn+@e2y(c^$&)gre_=2ka%ls+7a-%wunm@s0^b&c52%#4u
 DEBUG = False
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://real-time-chatapp-dbkh.onrender.com']
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost").split(",")
 
 CSRF_TRUSTED_ORIGINS = [ 'https://*' ]
 

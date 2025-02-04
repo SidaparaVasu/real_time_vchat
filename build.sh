@@ -10,7 +10,7 @@ pip install gunicorn
 
 # gunicorn --env DJANGO_SETTINGS_MODULE=real_time_chatapp.settings real_time_chatapp.asgi
 
-python manage.py collectstatic --no-input
+# python manage.py collectstatic --no-input
 python manage.py migrate
 
 if [[ $CREATE_SUPERUSER ]];
