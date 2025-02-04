@@ -35,14 +35,14 @@ CSRF_TRUSTED_ORIGINS = [ 'https://*' ]
 
 INSTALLED_APPS = [
     # 'whitenoise.runserver_nostatic'
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'daphne',
-    'channels',
     'users',
     'chat',
 ]
