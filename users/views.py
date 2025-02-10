@@ -46,9 +46,10 @@ def login_request(request):
         messages.error(request,"Invalid email or password.")
     
     form = AuthenticationForm()
-    return render(request, 'login.html')
+    return redirect(reverse(login_page))
 
 
 def logout_request(request):
     logout(request)
+    return redirect(reverse(login_page))
     return render(request, 'login.html')
