@@ -27,6 +27,126 @@
     box-shadow: 0 0 12px #00ffb3;
 }
 
+/* ANIMATIONS */
+@keyframes textFlicker {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 10px #00ff9f, 0 0 5px #00ff9f;
+    }
+    19% {
+        opacity: 0.8;
+    }
+    20% {
+        opacity: 1;
+    }
+    24% {
+        opacity: 0.95;
+        text-shadow: 0 0 15px #00ff9f;
+    }
+    25% {
+        opacity: 1;
+        text-shadow: 0 0 8px #00ff9f;
+    }
+    54% {
+        opacity: 1;
+        text-shadow: 0 0 10px #00ff9f;
+    }
+    55% {
+        opacity: 0.9;
+    }
+    56% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 10px #00ff9f;
+    }
+}
+
+@keyframes numberFlicker {
+    0%, 10% {
+        content: attr(data-value);
+        opacity: 1;
+    }
+    15% {
+        opacity: 0.7;
+    }
+    20% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.8;
+    }
+    30% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: -2px -2px 0 #00ff9f, 2px 2px 0 #00cc7f, -4px -4px 0 #00ffb3;
+    }
+    20% {
+        text-shadow: -1px -1px 0 #00ff9f, 1px 1px 0 #00cc7f;
+    }
+    40% {
+        text-shadow: -3px -3px 0 #00ff9f, 3px 3px 0 #00cc7f, -2px -2px 0 #00ffb3;
+    }
+    60% {
+        text-shadow: -2px 2px 0 #00ff9f, 2px -2px 0 #00cc7f;
+    }
+    80% {
+        text-shadow: 2px -1px 0 #00ff9f, -2px 1px 0 #00cc7f, 4px 0 0 #00ffb3;
+    }
+    100% {
+        text-shadow: -2px -2px 0 #00ff9f, 2px 2px 0 #00cc7f;
+    }
+}
+
+@keyframes pixelateButton {
+    0% {
+        box-shadow: 0 0 12px rgba(0, 255, 159, 0.4),
+                    inset 0 0 8px rgba(0, 255, 159, 0.1);
+    }
+    50% {
+        box-shadow: 2px 2px 0 #00ff9f, -2px -2px 0 #00cc7f,
+                    -2px 2px 0 #00ffb3, 2px -2px 0 #00cc7f,
+                    0 0 20px rgba(0, 255, 159, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 12px rgba(0, 255, 159, 0.4),
+                    inset 0 0 8px rgba(0, 255, 159, 0.1);
+    }
+}
+
+@keyframes sendMessage {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes revealText {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
 html, body {
     height: 100vh;
     width: 100vw;
@@ -34,9 +154,52 @@ html, body {
 }
 
 body {
-    background-color: #000000;
+    background: linear-gradient(135deg, #000000 0%, #0a1a15 50%, #000000 100%);
+    background-attachment: fixed;
     padding: 0;
     position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 159, 0.03) 0px,
+        rgba(0, 255, 159, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 255, 159, 0.1) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatGradient 15s ease-in-out infinite;
+}
+
+@keyframes floatGradient {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-30px, -30px);
+    }
 }
 
 body::before {
@@ -372,14 +535,19 @@ body::before {
     padding: 10px 12px;
     background-color: transparent;
     border: 1px solid #00ff9f;
-    border-radius: 0;
+    border-radius: 2px;
     color: #00ffb3;
     word-wrap: break-word;
-    max-width: 70%;
-    font-size: 12px;
+    max-width: 60%;
+    font-size: 13px;
     line-height: 1.5;
     text-shadow: 0 0 6px #00ffb3;
     box-shadow: 0 0 12px rgba(0, 255, 159, 0.3), inset 0 0 4px rgba(0, 255, 159, 0.1);
+}
+
+.chat-area .chat .my-chat p.sending {
+    animation: sendMessage 0.6s ease-in-out;
+    animation-fill-mode: both;
 }
 
 .no-messages {
@@ -409,18 +577,28 @@ body::before {
 }
 
 .chat-input-box input[type="text"] {
-    padding: 10px 12px;
+    padding: 10px 14px;
     outline: none;
     border: 1px solid #00ff9f;
     color: #00ff9f;
-    font-size: 12px;
+    font-size: 13px;
     width: 100%;
     background-color: rgba(0, 255, 159, 0.05);
-    border-radius: 0;
+    border-radius: 2px;
     transition: all 0.2s;
     font-family: "Fira Code", "Courier New", monospace;
     text-shadow: 0 0 4px #00cc7f;
     caret-color: #00ff9f;
+    position: relative;
+}
+
+.chat-input-box input[type="text"]::placeholder {
+    color: #00cc7f;
+}
+
+.chat-input-box input[type="text"].typing {
+    animation: textFlicker 0.3s ease-in-out;
+    text-shadow: 0 0 8px #00ffb3, 0 0 12px #00ff9f;
 }
 
 .chat-input-box input[type="text"]::placeholder {
@@ -442,18 +620,34 @@ body::before {
     outline: none;
     border: 1px solid #00ff9f;
     color: #00ff9f;
-    background-color: transparent;
-    padding: 10px 18px;
-    border-radius: 0;
+    background-color: rgba(0, 255, 159, 0.1);
+    padding: 10px 20px;
+    border-radius: 2px;
     cursor: pointer;
-    font-weight: 700;
-    font-size: 12px;
+    font-weight: 600;
+    font-size: 13px;
     transition: all 0.2s;
     flex-shrink: 0;
     text-shadow: 0 0 5px #00ff9f;
     font-family: "Fira Code", "Courier New", monospace;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    position: relative;
+}
+
+.chat-input-box input[type="button"]:hover,
+.chat-input-box input[type="submit"]:hover,
+#send-button:hover {
+    background-color: rgba(0, 255, 159, 0.15);
+    border-color: #00ffb3;
+    animation: pixelateButton 0.6s ease-in-out infinite;
+    color: #00ffb3;
+    text-shadow: 0 0 8px #00ffb3;
+}
+
+.chat-input-box input[type="button"]:active,
+.chat-input-box input[type="submit"]:active,
+#send-button:active {
+    animation: pixelateButton 0.4s ease-in-out;
+    box-shadow: 0 0 20px rgba(0, 255, 159, 0.6);
 }
 
 .chat-input-box input[type="button"]:hover,
@@ -579,10 +773,115 @@ label {
 
 .right-side-panel .logout-btn-box .logout-btn:hover {
     background-color: rgba(0, 255, 159, 0.15);
-    border: 1px solid #00ffb3;
+    border-color: #00ffb3;
     color: #00ffb3;
     box-shadow: 0 0 12px rgba(0, 255, 159, 0.4);
     text-shadow: 0 0 8px #00ffb3;
+}
+
+/* MODAL STYLES */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: #0a0a0a;
+    border: 2px solid #00ff9f;
+    border-radius: 4px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 30px rgba(0, 255, 159, 0.4), inset 0 0 15px rgba(0, 255, 159, 0.05);
+    animation: slideUp 0.3s ease-out;
+    position: relative;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    color: #00ff9f;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-shadow: 0 0 8px #00ff9f;
+    border-bottom: 1px solid #00ff9f;
+    padding-bottom: 12px;
+}
+
+.modal-body {
+    color: #00ff9f;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-shadow: 0 0 4px #00cc7f;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 8px 16px;
+    border: 1px solid #00ff9f;
+    background-color: rgba(0, 255, 159, 0.1);
+    color: #00ff9f;
+    border-radius: 2px;
+    cursor: pointer;
+    font-family: "Fira Code", "Courier New", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-shadow: 0 0 4px #00ff9f;
+}
+
+.modal-btn:hover {
+    background-color: rgba(0, 255, 159, 0.2);
+    border-color: #00ffb3;
+    color: #00ffb3;
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.3);
+    text-shadow: 0 0 8px #00ffb3;
+}
+
+.modal-btn-primary {
+    border-color: #00ffb3;
+    color: #00ffb3;
+    background-color: rgba(0, 255, 159, 0.15);
+    text-shadow: 0 0 6px #00ffb3;
 }
 
 .footer {

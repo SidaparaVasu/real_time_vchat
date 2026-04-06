@@ -89,11 +89,33 @@
 
             <script>
                 const chatbox = document.querySelector("#chat-area");
+                let typingTimeout;
 
                 // Function to scroll to the bottom of the chatbox
                 function scrollToBottom() {
                     chatbox.scrollTop = chatbox.scrollHeight;
                 }
+
+                // Modal Functions
+                function showModal(title, message) {
+                    const modal = document.getElementById("infoModal");
+                    document.getElementById("modalTitle").textContent = title;
+                    document.getElementById("modalMessage").textContent = message;
+                    modal.classList.add("show");
+                }
+
+                function closeModal() {
+                    const modal = document.getElementById("infoModal");
+                    modal.classList.remove("show");
+                }
+
+                // Close modal when clicking outside
+                window.addEventListener("click", function(e) {
+                    const modal = document.getElementById("infoModal");
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
 
                 // Scroll to bottom when the page is loaded
                 scrollToBottom();
@@ -106,27 +128,41 @@
                 );
 
                 chatSocket.onopen = function (e) {
-                    console.log("The connection was set up successfully!");
+                    console.log("[v0] WebSocket connection established");
                 };
                 chatSocket.onclose = function (e) {
-                    console.log("Something unexpected happened!");
+                    console.log("[v0] WebSocket connection closed");
+                    showModal("Connection Status", "Connection lost. Please refresh the page.");
                 };
 
                 document.querySelector("#room-name").innerHTML = "Chat with: <b>{{ room_name }}</b>";
 
-                document.querySelector("#message-input").focus();
-                document.querySelector("#message-input").onkeyup = function (e) {
+                const messageInput = document.querySelector("#message-input");
+                messageInput.focus();
+
+                // Add typing effect with text flickering
+                messageInput.addEventListener("input", function(e) {
+                    messageInput.classList.add("typing");
+                    clearTimeout(typingTimeout);
+                    
+                    typingTimeout = setTimeout(function() {
+                        messageInput.classList.remove("typing");
+                    }, 300);
+                });
+
+                messageInput.onkeyup = function (e) {
                     if (e.keyCode == 13) {
                         e.preventDefault();
                         document.querySelector("#submit_button").click();
                     }
                 };
 
-                document.querySelector("#submit_button").onclick = function (e) {
+                const submitButton = document.querySelector("#submit_button");
+                submitButton.onclick = function (e) {
                     var messageInput = document.querySelector("#message-input").value;
 
                     if (messageInput.length == 0) {
-                        alert("Add some input first or press the Send button!");
+                        showModal("Input Error", "Add some input first or press the Send button!");
                     } else {
                         chatSocket.send(
                             JSON.stringify({
@@ -136,10 +172,11 @@
                             })
                         );
                         document.querySelector("#message-input").value = ""; // Clear input field after sending
+                        messageInput.classList.remove("typing");
                     }
                 };
 
-                // Update the onmessage function to update the chat list
+                // Update the onmessage function to update the chat list with animations
                 chatSocket.onmessage = function (e) {
                     const data = JSON.parse(e.data);
 
@@ -157,7 +194,7 @@
                         if (data.sender === "{{ request.user.username }}") {
                             div.innerHTML =
                                 `<div class='my-chat'>
-                                    <p>${data.message}</p>
+                                    <p class='sending'>${data.message}</p>
                                 </div>`;
                         } else {
                             div.innerHTML =
@@ -167,6 +204,14 @@
                                 </div>`;
                         }
                         chatbox.appendChild(div);
+
+                        // Remove animation class after animation completes
+                        setTimeout(() => {
+                            const msgP = div.querySelector("p");
+                            if (msgP && msgP.classList.contains("sending")) {
+                                msgP.classList.remove("sending");
+                            }
+                        }, 600);
 
                         // Scroll to the bottom of the chatbox
                         scrollToBottom();
@@ -182,7 +227,7 @@
                                     ? "You: " + data.message
                                     : data.message;
 
-                            // update tyime4stamp in format of UTC time 12:00, 13:00 etc
+                            // update timestamp in format of UTC time 12:00, 13:00 etc
                             const timestamp = document.querySelector(
                                 "#user-item.active-chat .latest-message-txt"
                             );
@@ -204,10 +249,10 @@
                                 contacts.appendChild(chat);
                             });
                         } else {
-                            console.error("No active chat selected");
+                            console.log("[v0] No active chat selected for sidebar update");
                         }
                     } else {
-                        console.error("Message or sender data is missing:", data);
+                        console.error("[v0] Message or sender data is missing:", data);
                     }
                 };
 
@@ -232,6 +277,17 @@
         </aside>
 
     </main>
+
+    <!-- Modal Dialog -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalTitle">Information</div>
+            <div class="modal-body" id="modalMessage">Message goes here</div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
 
     <nav class="footer">
         <span>[DEV]</span> <span>Vasu Sidapara</span>
