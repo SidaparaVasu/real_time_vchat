@@ -13,7 +13,8 @@
 
 <body>
     <nav class="fixed-navbar">
-        Slack-like Chat Application
+        <span style="flex: 1;">CYBERCHAT SYSTEM</span>
+        <span style="font-size: 10px; color: #00cc7f;">STATUS: CONNECTED</span>
     </nav>
 
     <main class="main-container" id="main-container">
@@ -233,38 +234,45 @@
     </main>
 
     <nav class="footer">
-        Developed by <span>Vasu Sidapara</span> . Visit
-        <a href="https://www.linkedin.com/in/vasu-sidapara" target="_blank"> LinkedIn </a> | <a
-            href="https://github.com/SidaparaVasu" target="_blank"> GitHub </a>
+        <span>[DEV]</span> <span>Vasu Sidapara</span>
+        <a href="https://github.com/SidaparaVasu" target="_blank" style="text-decoration: none;">[GitHub]</a>
     </nav>
 
     <script>
+        const isMobile = window.innerWidth <= 768;
+        
         function collapse_menu() {
             let element = document.getElementById('main-container');
-            element.classList.toggle('active');
-        }      
-
-        function adjustPageSize() {
-            const screenWidth = window.innerWidth;
-            const page = document.documentElement; // Get the root element (usually <html>)
-
-            if (screenWidth >= 992 && screenWidth <= 1600) {
-                page.style.transform = "scale(0.9)"; // 90%
-            } else if (screenWidth >= 700 && screenWidth <= 767) {
-                page.style.transform = "scale(0.8)"; // 80%
-            } else if (screenWidth >= 600 && screenWidth < 700) {
-                page.style.transform = "scaleX(0.75)"; // 75% width;
-            } else if (screenWidth <= 600) {
-                page.style.transform = "scaleX(0.5)"; // 50% width
+            if (isMobile) {
+                element.classList.toggle('show-sidebar');
             } else {
-                page.style.transform = "scale(1)"; // Reset to normal size if outside ranges
+                element.classList.toggle('active');
             }
         }
 
-        // Call the function initially and on window resize
-        adjustPageSize();
-        window.addEventListener('resize', adjustPageSize);
+        function toggleProfile() {
+            let element = document.getElementById('main-container');
+            element.classList.toggle('show-profile');
+        }
 
+        // Handle responsive behavior on resize
+        window.addEventListener('resize', function() {
+            const newIsMobile = window.innerWidth <= 768;
+            if (newIsMobile !== isMobile) {
+                location.reload();
+            }
+        });
+
+        // Close mobile panels when clicking on main content
+        if (isMobile) {
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.addEventListener('click', function() {
+                    const container = document.getElementById('main-container');
+                    container.classList.remove('show-sidebar', 'show-profile');
+                });
+            }
+        }
     </script>
 
 
