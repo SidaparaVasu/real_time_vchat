@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Fira Code", "Courier New", monospace;
 }
 
 ::-webkit-scrollbar {
@@ -17,20 +17,41 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #5a6b7c;
-    border-radius: 4px;
+    background-color: #00ff9f;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #00ff9f;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #717d8c;
+    background-color: #00ffb3;
+    box-shadow: 0 0 12px #00ffb3;
 }
 
 body {
     height: 100vh;
     max-width: 100vw;
     overflow: hidden;
-    background-color: #1a1d23;
+    background-color: #0a0a0a;
     padding: 0;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 159, 0.03) 0px,
+        rgba(0, 255, 159, 0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 1;
 }
 
 .fixed-navbar,
@@ -40,53 +61,60 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    background-color: #1a1d23;
-    border-bottom: 1px solid #2d2e33;
+    color: #00ff9f;
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #00ff9f;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(0, 255, 159, 0.3);
+    position: relative;
+    z-index: 10;
 }
 
 .footer {
-    border-top: 1px solid #2d2e33;
+    border-top: 1px solid #00ff9f;
     border-bottom: none;
     gap: 20px;
 }
 
 .footer span,
 .footer a {
-    color: #818c99;
+    color: #00ff9f;
     margin: 0;
+    text-shadow: 0 0 5px #00ff9f;
 }
 
 .footer a {
     text-decoration: none;
-    color: #818c99;
-    transition: color 0.2s;
+    color: #00ff9f;
+    transition: all 0.2s;
 }
 
 .footer a:hover {
-    color: #fff;
+    color: #00ffb3;
+    text-shadow: 0 0 10px #00ffb3;
 }
 
 .main-container {
     position: relative;
     width: 100%;
     height: calc(100% - 100px);
-    background-color: #fff;
+    background-color: #0a0a0a;
     display: grid;
     grid-template-columns: 280px 1fr 320px;
     gap: 0;
+    z-index: 2;
 }
 
 /* LEFT SIDEBAR */
 .left-menu {
     position: relative;
     height: 100%;
-    background-color: #1a1d23;
-    border-right: 1px solid #2d2e33;
+    background-color: #0a0a0a;
+    border-right: 2px solid #00ff9f;
     display: flex;
     flex-direction: column;
+    box-shadow: inset -10px 0 15px rgba(0, 255, 159, 0.05);
 }
 
 .left-menu .lm-header {
@@ -98,30 +126,35 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 0;
-    border-bottom: 1px solid #2d2e33;
+    border-bottom: 2px solid #00ff9f;
+    box-shadow: 0 0 8px rgba(0, 255, 159, 0.2);
 }
 
 .left-menu .lm-header .menu-icon {
     font-size: 20px;
     padding: 4px;
-    color: #818c99;
+    color: #00ff9f;
     background-color: transparent;
     border-radius: 4px;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: all 0.2s;
     display: none;
+    text-shadow: 0 0 5px #00ff9f;
 }
 
 .left-menu .lm-header .menu-icon:hover {
-    color: #fff;
-    background-color: #2d2e33;
+    color: #00ffb3;
+    background-color: rgba(0, 255, 159, 0.1);
+    text-shadow: 0 0 10px #00ffb3;
+    box-shadow: 0 0 8px rgba(0, 255, 159, 0.3);
 }
 
 .left-menu .lm-header h1 {
-    color: #fff;
+    color: #00ff9f;
     font-size: 18px;
     font-weight: 700;
     flex: 1;
+    text-shadow: 0 0 8px #00ff9f;
 }
 
 .left-menu .chat-list {
@@ -142,26 +175,29 @@ body {
     gap: 12px;
     padding: 8px 12px;
     margin: 0 8px;
-    border-radius: 6px;
+    border-radius: 2px;
+    border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.2s;
     position: relative;
 }
 
 .left-menu .chat-list .user-chat .user-profile-img {
     height: 40px;
     width: 40px;
-    border-radius: 6px;
-    background-color: #2d2e33;
+    border-radius: 2px;
+    background-color: #0f0f0f;
     flex-shrink: 0;
     position: relative;
+    border: 1px solid #00ff9f;
+    box-shadow: 0 0 6px rgba(0, 255, 159, 0.3);
 }
 
 .left-menu .chat-list .user-chat .user-profile-img img {
     height: 100%;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 2px;
 }
 
 .left-menu .chat-list .user-chat .user-profile-img::after {
@@ -171,13 +207,14 @@ body {
     right: -2px;
     width: 12px;
     height: 12px;
-    background-color: #31a24c;
+    background-color: #00ff9f;
     border-radius: 50%;
-    border: 2px solid #1a1d23;
+    border: 2px solid #0a0a0a;
+    box-shadow: 0 0 6px #00ff9f;
 }
 
 .left-menu .chat-list .user-chat .chat-details {
-    color: #818c99;
+    color: #00ff9f;
     width: 100%;
     height: 100%;
     display: flex;
@@ -191,39 +228,46 @@ body {
 .left-menu .chat-list .user-chat .chat-details .user-name-number-txt {
     font-size: 14px;
     font-weight: 500;
-    color: #fff;
+    color: #00ff9f;
     text-decoration: none;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%;
+    text-shadow: 0 0 5px #00ff9f;
 }
 
 .left-menu .chat-list .user-chat .chat-details .latest-message-txt {
-    font-size: 12px;
-    color: #818c99;
+    font-size: 11px;
+    color: #00cc7f;
     text-decoration: none;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 100%;
+    text-shadow: 0 0 3px #00cc7f;
 }
 
 .left-menu .chat-list .user-chat:hover {
-    background-color: #2d2e33;
+    background-color: rgba(0, 255, 159, 0.08);
+    border: 1px solid #00ff9f;
+    box-shadow: 0 0 8px rgba(0, 255, 159, 0.2);
 }
 
 .left-menu .chat-list .active-chat {
-    background-color: #3f4147;
-    color: #fff;
+    background-color: rgba(0, 255, 159, 0.15);
+    border: 1px solid #00ff9f;
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.3);
 }
 
 .left-menu .chat-list .active-chat .chat-details .user-name-number-txt {
-    color: #fff;
+    color: #00ffb3;
+    text-shadow: 0 0 8px #00ffb3;
 }
 
 .left-menu .chat-list .active-chat .chat-details .latest-message-txt {
-    color: #818c99;
+    color: #00ffb3;
+    text-shadow: 0 0 6px #00ffb3;
 }
 
 /* collapse left menu */
@@ -249,6 +293,7 @@ body {
     justify-content: center;
     margin: 0 4px;
     padding: 8px 4px;
+    border: 1px solid #00ff9f;
 }
 
 #main-container.active .chat-list .user-chat .chat-details {
@@ -263,19 +308,22 @@ body {
 /* MAIN CONTENT */
 .main-content {
     position: relative;
-    background-color: #fff;
+    background-color: #0a0a0a;
     display: flex;
     flex-direction: column;
+    border: 1px solid #00ff9f;
+    box-shadow: inset 0 0 20px rgba(0, 255, 159, 0.05);
 }
 
 .user-chat-header {
     width: 100%;
     padding: 16px 24px;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 2px solid #00ff9f;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: #0a0a0a;
+    box-shadow: 0 0 8px rgba(0, 255, 159, 0.2);
 }
 
 .user-chat-header .flex {
@@ -284,7 +332,7 @@ body {
     gap: 12px;
     background-color: transparent;
     padding: 0;
-    color: #222;
+    color: #00ff9f;
 }
 
 .user-chat-header .flex .title {
@@ -295,20 +343,23 @@ body {
 .user-chat-header .flex .title b {
     font-size: 15px;
     font-weight: 600;
-    color: #222;
+    color: #00ff9f;
+    text-shadow: 0 0 8px #00ff9f;
 }
 
 .user-chat-header .flex .user-profile-img {
     height: 36px;
     width: 36px;
-    border-radius: 6px;
+    border-radius: 2px;
     flex-shrink: 0;
+    border: 1px solid #00ff9f;
+    box-shadow: 0 0 6px rgba(0, 255, 159, 0.3);
 }
 
 .user-chat-header .flex .user-profile-img img {
     height: 100%;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 2px;
 }
 
 .chat-area {
@@ -340,19 +391,24 @@ body {
 .chat-area .chat .friend-chat img {
     width: 32px;
     height: 32px;
-    border-radius: 4px;
+    border-radius: 2px;
     flex-shrink: 0;
+    border: 1px solid #00ff9f;
+    box-shadow: 0 0 4px rgba(0, 255, 159, 0.3);
 }
 
 .chat-area .chat .friend-chat p {
-    padding: 8px 12px;
-    background-color: #f0f0f0;
-    border-radius: 12px;
-    color: #222;
+    padding: 10px 12px;
+    background-color: transparent;
+    border: 1px solid #00cc7f;
+    border-radius: 2px;
+    color: #00ff9f;
     word-wrap: break-word;
     max-width: 60%;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 13px;
+    line-height: 1.5;
+    text-shadow: 0 0 4px #00cc7f;
+    box-shadow: 0 0 8px rgba(0, 204, 127, 0.2), inset 0 0 4px rgba(0, 255, 159, 0.05);
 }
 
 .chat-area .chat .my-chat {
@@ -362,29 +418,34 @@ body {
 }
 
 .chat-area .chat .my-chat p {
-    padding: 8px 12px;
-    background-color: #0084ff;
-    border-radius: 12px;
-    color: #fff;
+    padding: 10px 12px;
+    background-color: transparent;
+    border: 1px solid #00ff9f;
+    border-radius: 2px;
+    color: #00ffb3;
     word-wrap: break-word;
     max-width: 60%;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 13px;
+    line-height: 1.5;
+    text-shadow: 0 0 6px #00ffb3;
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.3), inset 0 0 4px rgba(0, 255, 159, 0.1);
 }
 
 .no-messages {
-    color: #818c99;
+    color: #00cc7f;
     text-align: center;
     font-size: 14px;
     padding: 40px 20px;
+    text-shadow: 0 0 6px #00cc7f;
 }
 
 .chat-input-box {
     position: relative;
     width: 100%;
     padding: 16px 24px;
-    border-top: 1px solid #e5e5e5;
-    background-color: #fff;
+    border-top: 2px solid #00ff9f;
+    background-color: #0a0a0a;
+    box-shadow: 0 -5px 15px rgba(0, 255, 159, 0.1);
 }
 
 .chat-input-box .flex {
@@ -398,50 +459,77 @@ body {
 .chat-input-box input[type="text"] {
     padding: 10px 14px;
     outline: none;
-    border: 1px solid #e5e5e5;
-    color: #222;
-    font-size: 14px;
+    border: 1px solid #00ff9f;
+    color: #00ff9f;
+    font-size: 13px;
     width: 100%;
-    background-color: #f8f8f8;
-    border-radius: 6px;
-    transition: border-color 0.2s;
+    background-color: rgba(0, 255, 159, 0.05);
+    border-radius: 2px;
+    transition: all 0.2s;
+    font-family: "Fira Code", "Courier New", monospace;
+    text-shadow: 0 0 4px #00cc7f;
+    caret-color: #00ff9f;
+}
+
+.chat-input-box input[type="text"]::placeholder {
+    color: #00cc7f;
+}
+
+@keyframes blink-cursor {
+    0%, 49% { border-right-color: #00ff9f; }
+    50%, 100% { border-right-color: transparent; }
 }
 
 .chat-input-box input[type="text"]:focus {
-    border-color: #0084ff;
-    background-color: #fff;
+    border-color: #00ffb3;
+    background-color: rgba(0, 255, 159, 0.1);
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.4), inset 0 0 8px rgba(0, 255, 159, 0.1);
+    text-shadow: 0 0 6px #00ffb3;
 }
 
 .chat-input-box input[type="button"],
 .chat-input-box input[type="submit"],
 #send-button {
     outline: none;
-    border: none;
-    color: #fff;
-    background-color: #0084ff;
+    border: 1px solid #00ff9f;
+    color: #00ff9f;
+    background-color: rgba(0, 255, 159, 0.1);
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 2px;
     cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s;
     flex-shrink: 0;
+    text-shadow: 0 0 5px #00ff9f;
+    font-family: "Fira Code", "Courier New", monospace;
 }
 
 .chat-input-box input[type="button"]:hover,
 .chat-input-box input[type="submit"]:hover,
 #send-button:hover {
-    background-color: #0073e6;
+    background-color: rgba(0, 255, 159, 0.15);
+    border-color: #00ffb3;
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.4);
+    color: #00ffb3;
+    text-shadow: 0 0 8px #00ffb3;
+}
+
+.chat-input-box input[type="button"]:active,
+.chat-input-box input[type="submit"]:active,
+#send-button:active {
+    box-shadow: 0 0 16px rgba(0, 255, 159, 0.5), inset 0 0 8px rgba(0, 255, 159, 0.2);
 }
 
 /* RIGHT SIDEBAR */
 .right-side-panel {
     position: relative;
     height: 100%;
-    background-color: #f8f8f8;
-    border-left: 1px solid #e5e5e5;
+    background-color: #0a0a0a;
+    border-left: 2px solid #00ff9f;
     display: flex;
     flex-direction: column;
+    box-shadow: inset 10px 0 15px rgba(0, 255, 159, 0.05);
 }
 
 .right-side-panel header {
@@ -450,13 +538,15 @@ body {
     display: flex;
     align-items: center;
     padding-left: 20px;
-    color: #222;
-    border-bottom: 1px solid #e5e5e5;
+    color: #00ff9f;
+    border-bottom: 2px solid #00ff9f;
+    box-shadow: 0 0 8px rgba(0, 255, 159, 0.2);
 }
 
 .right-side-panel header h1 {
     font-size: 16px;
     font-weight: 600;
+    text-shadow: 0 0 8px #00ff9f;
 }
 
 .right-side-panel .profile-img-box {
@@ -471,31 +561,36 @@ body {
 .right-side-panel .profile-img-box img {
     width: 100px;
     height: 100px;
-    border-radius: 8px;
+    border-radius: 2px;
+    border: 2px solid #00ff9f;
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.3);
 }
 
 label {
-    color: #0084ff;
+    color: #00ff9f;
 }
 
 .right-side-panel .label {
     width: 100%;
     text-align: center;
     padding: 0 20px;
-    color: #818c99;
-    font-size: 12px;
+    color: #00cc7f;
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     margin-top: 10px;
+    text-shadow: 0 0 4px #00cc7f;
+    letter-spacing: 1px;
 }
 
 .right-side-panel #username-txt {
     text-align: center;
     margin-top: 8px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    color: #222;
+    color: #00ff9f;
     padding: 0 20px;
+    text-shadow: 0 0 8px #00ff9f;
 }
 
 .right-side-panel .logout-btn-box {
@@ -505,19 +600,24 @@ label {
 
 .right-side-panel .logout-btn-box .logout-btn {
     padding: 10px 16px;
-    color: #0084ff;
+    color: #00ff9f;
     background-color: transparent;
     outline: none;
-    border: 1px solid #0084ff;
-    border-radius: 6px;
+    border: 1px solid #00ff9f;
+    border-radius: 2px;
     cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 13px;
     width: 100%;
-    transition: background-color 0.2s, color 0.2s;
+    transition: all 0.2s;
+    font-family: "Fira Code", "Courier New", monospace;
+    text-shadow: 0 0 5px #00ff9f;
 }
 
 .right-side-panel .logout-btn-box .logout-btn:hover {
-    background-color: #0084ff;
-    color: #fff;
+    background-color: rgba(0, 255, 159, 0.15);
+    border-color: #00ffb3;
+    color: #00ffb3;
+    box-shadow: 0 0 12px rgba(0, 255, 159, 0.4);
+    text-shadow: 0 0 8px #00ffb3;
 }
